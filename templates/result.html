@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kết quả so sánh</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+            text-align: center;
+        }
+
+        h1 {
+            background-color: #4CAF50;
+            color: white;
+            padding: 20px 0;
+            margin: 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #4CAF50;
+        }
+
+        img {
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            padding: 5px;
+            background-color: #fff;
+            transition: transform 0.2s;
+        }
+
+        img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        h3 {
+            margin: 20px 0;
+            font-size: 1.2rem;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        a:hover {
+            background-color: #45a049;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .image-section {
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Kết quả so sánh</h1>
+
+        <div class="image-section">
+            <h2>Image 1</h2>
+            <img src="{{ url_for('static', filename='uploads/' + image1) }}" width="300"><br><br>
+        </div>
+
+        <div class="image-section">
+            <h2>Image 2</h2>
+            <img src="{{ url_for('static', filename='uploads/' + image2) }}" width="300"><br><br>
+        </div>
+
+        <h3>Cosine Similarity: {{ similarity }}</h3>
+        {% if is_similar %}
+            <h3 style="color: green;">Hai hình ảnh này giống nhau</h3>
+        {% else %}
+            <h3 style="color: red;">Hai hình ảnh này không giống nhau</h3>
+        {% endif %}
+
+        <br><br>
+        <a href="/">Try Again</a>
+    </div>
+</body>
+</html>
