@@ -10,12 +10,12 @@ def get_embedding(image_path, model_name="Facenet512"):
     embedding = DeepFace.represent(img_path=image_path, model_name=model_name, enforce_detection=False)[0]["embedding"]
     return embedding
 def detect_and_crop_face(image_path):
-    # Đọc ảnh
     image = cv2.imread(image_path)
     rgb_image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
     detector = MTCNN()
     results = detector.detect_faces(rgb_image)
-
+    # face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
+    # faces = face_cascade.detectMultiScale(rgb_image, scaleFactor=1.1, minNeighbors=5)
     if results:
         x, y, width, height = results[0]['box']
         x, y = max(0, x), max(0, y)  
