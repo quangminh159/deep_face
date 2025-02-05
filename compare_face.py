@@ -12,16 +12,31 @@ def get_embedding(image_path, model_name="Facenet512"):
 def detect_and_crop_face(image_path):
     image = cv2.imread(image_path)
     rgb_image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+
     detector = MTCNN()
     results = detector.detect_faces(rgb_image)
-    # face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
-    # faces = face_cascade.detectMultiScale(rgb_image, scaleFactor=1.1, minNeighbors=5)
     if results:
         x, y, width, height = results[0]['box']
         x, y = max(0, x), max(0, y)  
         face = image[y:y + height, x:x + width]
         return face, (x, y, width, height)
     return None, None
+
+    # face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
+    # results = face_cascade.detectMultiScale(rgb_image, scaleFactor=1.1, minNeighbors=5)
+    # def detect_and_crop_face(image_path):
+    #     image = cv2.imread(image_path)
+    # rgb_image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+    # face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
+    # results = face_cascade.detectMultiScale(rgb_image, scaleFactor=1.1, minNeighbors=5)
+    # if len(results) > 0:
+    #     x, y, width, height = results[0]
+    #     x, y = max(0, x), max(0, y)  
+    #     face = image[y:y + height, x:x + width]
+    #     return face, (x, y, width, height)
+    # return None, None
+
+
 def compare_images(image_path1, image_path2, model_name="Facenet512", threshold=0.5):
     embedding1 = DeepFace.represent(img_path=image_path1, model_name=model_name, enforce_detection=False)[0]["embedding"]
     embedding2 = DeepFace.represent(img_path=image_path2, model_name=model_name, enforce_detection=False)[0]["embedding"]
